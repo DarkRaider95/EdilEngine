@@ -8,7 +8,9 @@ const nextConfig = {
     serverComponentsExternalPackages: [],
   },
   async rewrites() {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+    // Server-side: use internal Docker hostname (backend) or fallback
+    // Client-side requests go through this rewrite proxy
+    const backendUrl = process.env.API_URL_INTERNAL || process.env.NEXT_PUBLIC_API_URL || 'http://backend:8080';
     return [
       {
         source: '/api/:path*',

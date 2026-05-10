@@ -63,6 +63,6 @@ export function getApiBaseUrl(): string {
     // Client-side: use relative path (Next.js rewrites proxy to backend)
     return "";
   }
-  // Server-side: use env variable
-  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+  // Server-side (SSR): use internal Docker hostname or env variable
+  return process.env.API_URL_INTERNAL || process.env.NEXT_PUBLIC_API_URL || "http://backend:8080";
 }
