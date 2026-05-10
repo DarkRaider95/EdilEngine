@@ -332,9 +332,3 @@ gcloud run jobs create edilengine-scraper --image ... --region europe-west8
 ## Licenza
 
 Progetto privato. Tutti i diritti riservati.
-
-
-
-
-
-
