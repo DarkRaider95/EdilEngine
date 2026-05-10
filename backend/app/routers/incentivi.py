@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/incentivi", tags=["incentivi"])
 
 
-@router.get("/", response_model=IncentivoListResponse)
+@router.get("", response_model=IncentivoListResponse)
 async def list_incentivi(
     tipo: str | None = Query(default=None, description="Filter by incentive type"),
     ente_erogatore: str | None = Query(default=None, description="Filter by granting entity"),

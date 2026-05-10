@@ -68,7 +68,7 @@ export async function getLeggi(params: {
   data_a?: string;
 }): Promise<LeggeListResponse> {
   const qs = buildQueryString(params as Record<string, string | number | null | undefined>);
-  return request<LeggeListResponse>(`/api/leggi/${qs}`);
+  return request<LeggeListResponse>(`/api/leggi${qs}`);
 }
 
 export async function getLegge(id: string): Promise<LeggeDetail> {
@@ -112,7 +112,7 @@ export async function getIncentivi(params: {
   page_size?: number;
 }): Promise<IncentivoListResponse> {
   const qs = buildQueryString(params as Record<string, string | number | null | undefined>);
-  return request<IncentivoListResponse>(`/api/incentivi/${qs}`);
+  return request<IncentivoListResponse>(`/api/incentivi${qs}`);
 }
 
 export async function getIncentivo(id: string): Promise<IncentivoDetail> {
@@ -132,7 +132,7 @@ export async function getVincoli(params: {
   page_size?: number;
 }): Promise<VincoloListResponse> {
   const qs = buildQueryString(params as Record<string, string | number | null | undefined>);
-  return request<VincoloListResponse>(`/api/vincoli/${qs}`);
+  return request<VincoloListResponse>(`/api/vincoli${qs}`);
 }
 
 // ============================================================

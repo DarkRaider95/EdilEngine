@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/vincoli", tags=["vincoli"])
 
 
-@router.get("/", response_model=VincoloListResponse)
+@router.get("", response_model=VincoloListResponse)
 async def list_vincoli(
     regione: str | None = Query(default=None, description="Filter by region"),
     provincia: str | None = Query(default=None, description="Filter by province"),

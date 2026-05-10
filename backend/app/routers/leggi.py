@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/leggi", tags=["leggi"])
 
 
-@router.get("/", response_model=LeggeListResponse)
+@router.get("", response_model=LeggeListResponse)
 async def list_leggi(
     page: int = Query(default=1, ge=1, description="Page number"),
     page_size: int = Query(default=20, ge=1, le=100, description="Items per page"),
