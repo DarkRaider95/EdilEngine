@@ -102,6 +102,7 @@ class SearchService:
 
         items = [
             LeggeBase(
+                id=row["id"],
                 titolo=row["titolo"],
                 tipo=row["tipo"],
                 numero=row["numero"],

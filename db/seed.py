@@ -983,6 +983,17 @@ async def seed_database(database_url: str, embedding_provider: str = "local", em
 
         await session.commit()
 
+        # ---- UPDATE TSVECTOR ----
+        print("\n📋 Aggiornamento testo_tsvector per full-text search...")
+        await session.execute(
+            sql_text("""
+                UPDATE leggi SET testo_tsvector = to_tsvector('italian', COALESCE(testo_completo, ''))
+                WHERE testo_tsvector IS NULL
+            """)
+        )
+        await session.commit()
+        print("  ✅ testo_tsvector aggiornato")
+
     # ---- EMBEDDINGS ----
     print("\n📋 Generazione embeddings per le leggi...")
     print(f"   Provider: {embedding_provider}")
