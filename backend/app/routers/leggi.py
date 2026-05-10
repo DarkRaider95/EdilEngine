@@ -6,7 +6,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import noload, selectinload
 
 from app.database import get_db
 from app.models.leggi import Categoria, Legge
@@ -129,7 +129,11 @@ async def get_categorie_tree(
 
     Returns categories organized in a tree structure with parent-child relationships.
     """
-    stmt = select(Categoria).order_by(Categoria.nome)
+    stmt = select(Categoria).options(
+        noload(Categoria.leggi),
+        noload(Categoria.children),
+        noload(Categoria.parent),
+    ).order_by(Categoria.nome)
     result = await db.execute(stmt)
     all_categories = result.scalars().all()
 
