@@ -79,26 +79,6 @@ async def list_leggi(
     )
 
 
-@router.get("/{legge_id}", response_model=LeggeDetail)
-async def get_legge(
-    legge_id: UUID,
-    db: AsyncSession = Depends(get_db),
-) -> LeggeDetail:
-    """Get detailed information about a single law including categories."""
-    stmt = (
-        select(Legge)
-        .where(Legge.id == legge_id)
-        .options(selectinload(Legge.categorie))
-    )
-    result = await db.execute(stmt)
-    legge = result.scalar_one_or_none()
-
-    if not legge:
-        raise HTTPException(status_code=404, detail="Legge non trovata")
-
-    return LeggeDetail.model_validate(legge)
-
-
 @router.get("/search", response_model=SearchResult)
 async def search_leggi(
     q: str = Query(..., min_length=1, description="Search query"),
@@ -173,3 +153,23 @@ async def get_categorie_tree(
             roots.append(node)
 
     return roots
+
+
+@router.get("/{legge_id}", response_model=LeggeDetail)
+async def get_legge(
+    legge_id: UUID,
+    db: AsyncSession = Depends(get_db),
+) -> LeggeDetail:
+    """Get detailed information about a single law including categories."""
+    stmt = (
+        select(Legge)
+        .where(Legge.id == legge_id)
+        .options(selectinload(Legge.categorie))
+    )
+    result = await db.execute(stmt)
+    legge = result.scalar_one_or_none()
+
+    if not legge:
+        raise HTTPException(status_code=404, detail="Legge non trovata")
+
+    return LeggeDetail.model_validate(legge)
