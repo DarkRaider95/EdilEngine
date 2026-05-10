@@ -1,0 +1,56 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# CI/CD
+.github/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+!.env.local.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+ENV/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+.next/
+out/
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose*.yml
+*.tar
+
+# Misc
+*.log
+coverage/
+.coverage
+htmlcov/

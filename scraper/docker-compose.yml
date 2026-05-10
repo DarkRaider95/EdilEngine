@@ -1,0 +1,42 @@
+# EdilEngine Scraper Docker Compose
+# Use this to run the scraper in a container with database access
+
+services:
+  scraper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://edilengine:edilengine@db:5432/edilengine
+    volumes:
+      - ./scrapy_output:/app/scrapy_output
+      - ./httpcache:/app/httpcache
+    depends_on:
+      - db
+    networks:
+      - edilengine-network
+    # Override command to run specific spider
+    # command: scrapy crawl normattiva
+
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: edilengine
+      POSTGRES_PASSWORD: edilengine
+      POSTGRES_DB: edilengine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../../db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - edilengine-network
+
+volumes:
+  postgres_data:
+
+networks:
+  edilengine-network:
+    driver: bridge
